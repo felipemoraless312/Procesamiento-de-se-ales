@@ -1,0 +1,75 @@
+INICIO
+
+    # --- Immportar librerias ---
+    import neurokit2 as nk
+    import numpy as np
+    import matplotlib.pylot as plt
+
+    # --- PARÁMETROS PRINCIPALES ---
+    Definir frecuencia_de_muestreo fs = 1000 Hz
+    fs= 1000
+    Definir duración de la señal duration = 2 
+    segundos
+    duration= 2
+    Definir frecuencia cardíaca bpm = 90 latidos por minuto
+    bpm=90
+    Crear vector de tiempo t desde 0 hasta duration con paso de 1/fs
+    t= np.arange(0,duration, 1/fs)
+
+    # --- GENERAR SEÑAL ECG ---
+    Generar señal ECG simulada usando función ecg_simulate() con los parámetros anteriores
+
+    ecg=nk.ecg_simulate(duration=, sampling_rate=, heart_rate=)
+
+    # --- CREAR SEÑALES DE RUIDO SENOIDALES ---
+    Definir frecuencia sen60 = 60 Hz
+    Definir amplitud a60 = 0.15
+    Crear señal sl60 = a60 * sin(2π * sen60 * t)
+
+    Definir frecuencia sen200 = 200 Hz
+    Definir amplitud a200 = 0.25
+    Crear señal sl200 = a200 * sin(2π * sen200 * t)
+
+    # --- SEÑAL COMPUESTA (ECG + RUIDO) ---
+    compuesta = ecg + sl60 + sl200
+
+    # --- DIFERENCIA ENTRE SEÑAL ORIGINAL Y COMPUESTA ---
+    ecg_dif = compuesta - ecg
+
+    # --- GRAFICAR LAS SEÑALES ---
+    Crear figura con 3 subgráficas:
+        Subgráfica 1: Graficar ecg (color verde) → Señal original
+        Subgráfica 2: Graficar compuesta (color verde) → ECG con ruido
+        Subgráfica 3: Graficar ecg_dif (color verde) → Diferencia entre ambas
+    Mostrar las gráficas
+
+    # --- ANÁLISIS DE FRECUENCIA (FFT) ---
+    Calcular transformada rápida de Fourier (FFT) de la señal compuesta
+    Calcular vector de frecuencias correspondiente
+    Calcular magnitud = valor absoluto de la FFT
+    Graficar magnitud vs frecuencia (color púrpura)
+    Limitar eje X hasta 210 Hz
+    Mostrar gráfica de frecuencia
+
+    # --- FILTRADO DE LA SEÑAL ---
+    Aplicar filtro pasa-banda Butterworth de orden 3:
+        - Frecuencia baja (lowcut) = 1 Hz
+        - Frecuencia alta (highcut) = 50 Hz
+        - Método: "butterworth"
+    Guardar resultado en signal_filtered
+    Graficar señal filtrada (color azul)
+    Mostrar gráfica
+
+    # --- CÁLCULOS DE ERRORES Y MÉTRICAS ---
+    Calcular MAE = promedio del valor absoluto (ecg - signal_filtered)
+    Calcular MSE = promedio del cuadrado (ecg - signal_filtered)
+    Calcular potencia de señal = promedio de (ecg^2)
+    Calcular potencia de ruido = promedio de (ecg - signal_filtered)^2
+    Calcular SNR = 10 * log10(potencia_señal / potencia_ruido)
+
+    # --- MOSTRAR RESULTADOS ---
+    Imprimir MAE
+    Imprimir MSE
+    Imprimir SNR en decibelios
+
+FIN
